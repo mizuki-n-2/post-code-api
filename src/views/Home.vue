@@ -1,18 +1,27 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <input type="text" v-model="postNum">
+    <button @click="showAddress">住所自動入力</button>
+    <p>Address:{{fullAddress}}</p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from "axios";
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      postNum: "",
+      fullAddress: ""
+    };
+  },
+  methods: {
+    async showAddress() {
+      let address = await axios.get(`https://apis.postcode-jp.com/api/v4/postcodes/${this.postNum}?fields=allAddress&apiKey=kGhJYIXeG9NicR9te8n9NHjd1tIB6Q5JOYf3uAh`);
+      this.data = address.data[0];
+      this.fullAddress = this.data.allAddress;
+      // console.log(address);
+    }
   }
-}
+};
 </script>
