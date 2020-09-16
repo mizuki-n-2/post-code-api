@@ -18,8 +18,7 @@ export default {
   methods: {
     async showAddress() {
       let address = await axios.get(`https://apis.postcode-jp.com/api/v4/postcodes/${this.postNum}?fields=allAddress&apiKey=kGhJYIXeG9NicR9te8n9NHjd1tIB6Q5JOYf3uAh`);
-      this.data = address.data[0];
-      this.fullAddress = this.data.allAddress;
+      this.fullAddress = address.data[0].allAddress;
       // console.log(address);
     }
   }
